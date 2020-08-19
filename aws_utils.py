@@ -78,8 +78,8 @@ def get_all_file_paths(directory):
 
     for root, directories, files in os.walk(directory):
         for filename in files:
-            filepath = os.path.join(root, filename)
-            file_paths.append(filepath)
+            file_path = os.path.join(root, filename)
+            file_paths.append(file_path)
 
     return file_paths
 

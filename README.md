@@ -116,7 +116,7 @@ then, you should see something like:
 ...
 ```
 
-You can also copy the images not to your instances, but (of course) to a S3 bucket! You will just need to set your `LOCAL_TMP_BUCKET` with your storage address. For example, `LOCAL_TMP_BUCKET='sentinel-s1-tmp'`. 
+You can also copy the images not to your instances, but (of course) to a S3 bucket! You will just need to set your `LOCAL_TMP_BUCKET` with your storage address. For example, `LOCAL_TMP_BUCKET='s3://sentinel-s1-tmp/'`. 
 
 ## Copying from AWS S3 bucket to your local filesystem
 The script can also be used to search and download images to your computer, without using EC2 instances. To do so, set your `LOCAL_TMP_BUCKET` variable. In this case, a download is performed, instead of a copy. 
