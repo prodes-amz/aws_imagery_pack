@@ -1,13 +1,14 @@
+import itertools
+import re
 import os
-import glob
-import settings
 import logging
+
 import aws_search
 import aws_download
-import itertools
 import aws_utils as utils
+import settings
 
-from sentinelsat import read_geojson, geojson_to_wkt
+from sentinelsat import geojson_to_wkt
 
 
 def search_and_download(ranges):
@@ -16,15 +17,14 @@ def search_and_download(ranges):
     :return:
     """
     aois_path = settings.DATASET_PATH + 'aoi/'
-    aois_list = [f for f in glob.glob(aois_path + '/*.geojson', recursive=False)]
-
+    aois_list = list(map(lambda file: os.path.join(aois_path, file), [f for f in os.listdir(aois_path) if re.search(r'.*\.(shp|kml|csv|geojson)$', f)]))
     logging.info(">> {} AOIs (in .geojson format) found!".format(len(aois_list)))
     for range in ranges:
         for aoi in aois_list:
             logging.info(">> Range date: {} to {} - AOI: {}".format(range[0], range[1], aoi))
 
             if os.path.isfile(aoi):
-                bbox_geojson = read_geojson(aoi)
+                bbox_geojson = utils.read_shape_file(aoi).geometry.__geo_interface__
                 is_valid_aoi = utils.check_aoi(bbox_geojson)
 
                 if is_valid_aoi is not True:
