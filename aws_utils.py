@@ -42,7 +42,7 @@ def check_aoi(geojson):
     flag = True
 
     for item in geojson['features']:
-        if item['geometry']['type'] is not 'Polygon':
+        if item['geometry']['type'] != 'Polygon':
             flag = False
             logging.warning(">>>> The AOIs need to be in Polygon "
                             "representation. {} found!".format(item['geometry']['type']))
