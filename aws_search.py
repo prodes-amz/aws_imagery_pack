@@ -66,6 +66,8 @@ def s1_full_text_search(bbox, range_date):
 
             r_dict = r.json()
             if 'entry' in r_dict['feed']:
+                if not isinstance(r_dict['feed']['entry'], list):
+                    r_dict['feed']['entry'] = [r_dict['feed']['entry']]
                 for result in r_dict['feed']['entry']:
                     count_results += 1
                     identifier = result['title']
